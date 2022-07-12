@@ -56,7 +56,7 @@ public class StudentFormController {
         }
 
         tblStudent.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            btnAdd.setText(newValue != null ? "Update" : "Add");
+            btnAdd.setText(newValue != null ? "Update" : "Save");
             txtId.setEditable(false);
             if (newValue != null) {
                 txtId.setText(newValue.getStudentId());
@@ -118,7 +118,7 @@ public class StudentFormController {
 
     }
 
-    public void addOnAction(ActionEvent actionEvent) {
+    public void addOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String id = txtId.getText();
         String name = txtName.getText();
         String email = txtEmail.getText();
@@ -127,7 +127,7 @@ public class StudentFormController {
         String nic = txtNIC.getText();
 
 
-        if (btnAdd.getText().equals("Add")) {
+        if (btnAdd.getText().equals("Save")) {
             Student s = new Student(
                     txtId.getText(), txtName.getText(), txtEmail.getText(), txtContact.getText(), txtAddress.getText(), txtNIC.getText());
 
@@ -141,6 +141,8 @@ public class StudentFormController {
                 e.printStackTrace();
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
+
+            loadAllStudent();
 
         } else {
             try {
@@ -193,7 +195,21 @@ public class StudentFormController {
     }
 
     public void deleteOnAction(ActionEvent actionEvent) {
-        
+        try {
+            CrudUtil.execute("DELETE FROM student WHERE student_id=?",txtId.getText());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            loadAllStudent();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
     }
