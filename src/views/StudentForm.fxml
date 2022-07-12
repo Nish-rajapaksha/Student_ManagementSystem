@@ -40,6 +40,7 @@
                </children>
             </AnchorPane>
             <JFXTextField fx:id="txtEmail" layoutX="496.0" layoutY="96.0" promptText="Email" />
+            <JFXTextField fx:id="txtSearch" layoutX="48.0" layoutY="344.0" promptText="Search" />
          </children>
       </AnchorPane>
    </children>
