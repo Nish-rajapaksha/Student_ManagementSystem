@@ -180,9 +180,21 @@ public class StudentFormController {
 
 
     public void newOnAction(ActionEvent actionEvent) {
+        txtId.setEditable(true);
+        btnAdd.setText("Save");
+        txtId.clear();
+        txtName.clear();
+        txtEmail.clear();
+        txtContact.clear();
+        txtAddress.clear();
+        txtNIC.clear();
+
+
     }
 
     public void deleteOnAction(ActionEvent actionEvent) {
+        
+
 
     }
 }
